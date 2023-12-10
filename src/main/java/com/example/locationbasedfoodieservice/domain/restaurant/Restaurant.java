@@ -1,10 +1,14 @@
 package com.example.locationbasedfoodieservice.domain.restaurant;
 
+import com.example.locationbasedfoodieservice.domain.review.Review;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -51,6 +55,9 @@ public class Restaurant {
 
     @Column
     private Double latitude;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<Review> reviews = new ArrayList<>();
 
 
     @Builder
