@@ -51,6 +51,9 @@ public class Restaurant {
     private String postalCode;
 
     @Column
+    private Double rating;
+
+    @Column
     private Double longitude;
 
     @Column
@@ -75,7 +78,12 @@ public class Restaurant {
         this.streetAddress = streetAddress;
         this.lotNumberAddress = lotNumberAddress;
         this.postalCode = postalCode;
+        this.rating = 0.0;
         this.longitude = longitude;
         this.latitude = latitude;
+    }
+
+    public void updateRating(double rating) {
+        this.rating = rating;
     }
 }

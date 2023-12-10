@@ -18,10 +18,14 @@ public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
 
     public RestaurantResponseDto getRestaurant(Long restaurantId) {
-        Restaurant restaurant = restaurantRepository.findById(restaurantId)
-                .orElseThrow(() -> new CustomException(CustomErrorCode.RESTAURANT_NOT_FOUND));
+        Restaurant restaurant = findRestaurant(restaurantId);
 
         return RestaurantResponseDto.from(restaurant);
+    }
+
+    public Restaurant findRestaurant(Long restaurantId) {
+        return restaurantRepository.findById(restaurantId)
+                .orElseThrow(() -> new CustomException(CustomErrorCode.RESTAURANT_NOT_FOUND));
     }
 
     public List<RestaurantResponseDto> getListRestaurant(Double latitude, Double longitude) {
