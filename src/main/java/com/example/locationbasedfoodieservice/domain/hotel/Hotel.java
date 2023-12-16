@@ -86,4 +86,17 @@ public class Hotel {
     public void updateRating(double rating) {
         this.rating = rating;
     }
+
+    public void update(RawHotel rawHotel) {
+        this.city = rawHotel.getSigunNm();
+        this.name = rawHotel.getBizplcNm();
+        this.licenseDate = rawHotel.getLicensgDe();
+        this.businessStatus = rawHotel.getBsnStateNm();
+        this.type = rawHotel.getSanittnBizcondNm();
+        this.streetAddress = rawHotel.getRefineRoadnmAddr();
+        this.lotNumberAddress = rawHotel.getRefineLotnoAddr();
+        this.postalCode = rawHotel.getRefineZipCd();
+        this.longitude = rawHotel.getRefineWgs84Logt();
+        this.latitude = rawHotel.getRefineWgs84Lat();
+    }
 }
