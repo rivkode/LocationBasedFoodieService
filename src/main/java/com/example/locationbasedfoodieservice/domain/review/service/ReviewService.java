@@ -1,7 +1,7 @@
 package com.example.locationbasedfoodieservice.domain.review.service;
 
-import com.example.locationbasedfoodieservice.domain.restaurant.Restaurant;
-import com.example.locationbasedfoodieservice.domain.restaurant.service.RestaurantService;
+import com.example.locationbasedfoodieservice.domain.hotel.Hotel;
+import com.example.locationbasedfoodieservice.domain.hotel.service.HotelService;
 import com.example.locationbasedfoodieservice.domain.review.Review;
 import com.example.locationbasedfoodieservice.domain.review.dto.ReviewRequest;
 import com.example.locationbasedfoodieservice.domain.review.repository.ReviewRepository;
@@ -15,18 +15,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
-    private final RestaurantService restaurantService;
+    private final HotelService hotelService;
 
     public void createReview(ReviewRequest request) {
-        Restaurant restaurant = restaurantService.findRestaurant(request.getRestaurantId());
+        Hotel hotel = hotelService.findHotel(request.getRestaurantId());
 
-        Review savedReview = reviewRepository.save(request.toEntity(restaurant));
-        savedReview.addRestaurant(restaurant);
+        Review savedReview = reviewRepository.save(request.toEntity(hotel));
+        savedReview.addRestaurant(hotel);
 
         int totalReviewNum = reviewRepository.findCountByRestaurantId(request.getRestaurantId());
         int reviewScore = request.getScore();
 
-        checkAndUpdateRating(restaurant, totalReviewNum, reviewScore);
+        checkAndUpdateRating(hotel, totalReviewNum, reviewScore);
 
     }
 
@@ -35,22 +35,22 @@ public class ReviewService {
     // 새점수 + 총점
     // 평균 계산
     // 리뷰 평점 업데이트
-    private void updateRestaurantRating(Restaurant restaurant, int totalReviewNum,
+    private void updateRestaurantRating(Hotel hotel, int totalReviewNum,
             int reviewScore, double avg) {
 
         double calAvg = avg * totalReviewNum;
         double newCalAvg = calAvg + reviewScore;
         double resultAvg = newCalAvg / (totalReviewNum + 1);
-        restaurant.updateRating(resultAvg);
+        hotel.updateRating(resultAvg);
     }
 
-    private void checkAndUpdateRating(Restaurant restaurant, int totalReviewNum, int reviewScore) {
+    private void checkAndUpdateRating(Hotel hotel, int totalReviewNum, int reviewScore) {
 
-        if (restaurant.getRating() != null) {
-            double avg = restaurant.getRating();
-            this.updateRestaurantRating(restaurant, totalReviewNum, reviewScore, avg);
+        if (hotel.getRating() != null) {
+            double avg = hotel.getRating();
+            this.updateRestaurantRating(hotel, totalReviewNum, reviewScore, avg);
         } else {
-            restaurant.updateRating(reviewScore);
+            hotel.updateRating(reviewScore);
         }
     }
 

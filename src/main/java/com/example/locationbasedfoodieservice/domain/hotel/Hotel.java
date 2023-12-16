@@ -1,4 +1,4 @@
-package com.example.locationbasedfoodieservice.domain.restaurant;
+package com.example.locationbasedfoodieservice.domain.hotel;
 
 import com.example.locationbasedfoodieservice.domain.review.Review;
 import jakarta.persistence.Column;
@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Restaurant {
+public class Hotel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,12 +59,12 @@ public class Restaurant {
     @Column
     private Double latitude;
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(mappedBy = "hotel")
     private List<Review> reviews = new ArrayList<>();
 
 
     @Builder
-    public Restaurant(Long id, String nameAddress, String city, String name, String licenseDate,
+    public Hotel(Long id, String nameAddress, String city, String name, String licenseDate,
             String businessStatus,
             String type, String streetAddress, String lotNumberAddress, String postalCode,
             Double longitude, Double latitude) {

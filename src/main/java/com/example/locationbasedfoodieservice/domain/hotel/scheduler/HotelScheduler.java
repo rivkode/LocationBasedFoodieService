@@ -1,10 +1,10 @@
-package com.example.locationbasedfoodieservice.domain.restaurant.scheduler;
+package com.example.locationbasedfoodieservice.domain.hotel.scheduler;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 
 
-public class RestaurantScheduler {
+public class HotelScheduler {
     @Value("${api.key}")
     private String apiKey;
 
@@ -20,7 +20,7 @@ public class RestaurantScheduler {
 
     // 데이터 총 개수를 가져와서 dataCount에 넣어줍니다.
     @Scheduled(cron = "0 0 4 * * 6")
-    private void updateRestaurant() {
+    private void updateHotel() {
 
     }
 }

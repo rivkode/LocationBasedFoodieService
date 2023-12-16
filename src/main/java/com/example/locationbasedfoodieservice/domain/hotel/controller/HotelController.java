@@ -1,7 +1,7 @@
-package com.example.locationbasedfoodieservice.domain.restaurant.controller;
+package com.example.locationbasedfoodieservice.domain.hotel.controller;
 
-import com.example.locationbasedfoodieservice.domain.restaurant.dto.RestaurantResponseDto;
-import com.example.locationbasedfoodieservice.domain.restaurant.service.RestaurantService;
+import com.example.locationbasedfoodieservice.domain.hotel.dto.HotelResponseDto;
+import com.example.locationbasedfoodieservice.domain.hotel.service.HotelService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,22 +14,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/api/restaurants")
 @RequiredArgsConstructor
-public class RestaurantController {
+public class HotelController {
 
-    private final RestaurantService restaurantService;
+    private final HotelService hotelService;
 
     @GetMapping(value = "/{restaurantId}")
-    public ResponseEntity<RestaurantResponseDto> getRestaurant(
+    public ResponseEntity<HotelResponseDto> getHotel(
             @PathVariable("restaurantId") Long restaurantId) {
 
-        return ResponseEntity.ok().body(restaurantService.getRestaurant(restaurantId));
+        return ResponseEntity.ok().body(hotelService.getHotel(restaurantId));
     }
 
     @GetMapping(value = "/list")
-    public ResponseEntity<List<RestaurantResponseDto>> getListRestaurant(
+    public ResponseEntity<List<HotelResponseDto>> getListHotel(
             @RequestParam(value = "latitude") Double latitude,
             @RequestParam(value = "longitude") Double longitude
     ) {
-        return ResponseEntity.ok().body(restaurantService.getListRestaurant(latitude, longitude));
+        return ResponseEntity.ok().body(hotelService.getListHotel(latitude, longitude));
     }
 }

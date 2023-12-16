@@ -1,6 +1,6 @@
 package com.example.locationbasedfoodieservice.domain.review.dto;
 
-import com.example.locationbasedfoodieservice.domain.restaurant.Restaurant;
+import com.example.locationbasedfoodieservice.domain.hotel.Hotel;
 import com.example.locationbasedfoodieservice.domain.review.Review;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -24,11 +24,11 @@ public class ReviewRequest {
     @NotNull
     private Long restaurantId;
 
-    public Review toEntity(Restaurant restaurant) {
+    public Review toEntity(Hotel hotel) {
         return Review.builder()
                 .score(score)
                 .content(content)
-                .restaurant(restaurant)
+                .restaurant(hotel)
                 .build();
     }
 
