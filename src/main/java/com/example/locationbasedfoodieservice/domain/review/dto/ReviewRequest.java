@@ -28,7 +28,7 @@ public class ReviewRequest {
         return Review.builder()
                 .score(score)
                 .content(content)
-                .restaurant(hotel)
+                .hotel(hotel)
                 .build();
     }
 
