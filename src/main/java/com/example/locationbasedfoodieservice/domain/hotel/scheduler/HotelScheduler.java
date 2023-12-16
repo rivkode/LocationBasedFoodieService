@@ -28,10 +28,9 @@ public class HotelScheduler {
      * 네 번째 필드: 일 (1-31)
      * 다섯 번째 필드: 월 (1-12)
      * 여섯 번째 필드: 요일 (0-6, 일요일부터 토요일까지, 일요일=0 또는 7)
-     * 월요일 06:30
+     * 월요일 06:05
      */
-//    @Scheduled(cron = "0 30 6 * * 1")
-    @Scheduled(cron = "0 53 20 * * *")
+    @Scheduled(cron = "0 5 6 * * 1")
     public void updateRestaurant() {
         log.info("Data PreProcessing Start");
 
