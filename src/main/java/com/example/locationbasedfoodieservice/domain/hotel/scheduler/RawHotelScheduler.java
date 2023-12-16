@@ -31,7 +31,6 @@ public class RawHotelScheduler {
     private final RawHotelJdbcRepository rawHotelJdbcRepository;
     @Value("${api.key}")
     private String apiKey;
-    private Long numberOfData;
     private final Long BATCH_SIZE = 999L;    // 한 번의 API 요청에 999개까지의 데이터만을 받아올 수 있습니다.
 
     /**
@@ -46,15 +45,14 @@ public class RawHotelScheduler {
      */
 
     // 데이터 총 개수를 가져와서 numberOfData 넣어줍니다.
-//    @Scheduled(cron = "0 0 6 * * 1")
-    @Scheduled(cron = "0 52 20 * * *")
+    @Scheduled(cron = "0 0 6 * * 1")
     private void updateHotel() {
         rawHotelRepository.deleteAll();
-        dataNumber();
-        updateData();
+        Long numberOfData = dataNumber();
+        updateData(numberOfData);
     }
 
-    public void dataNumber() {
+    public Long dataNumber() {
         URI uri = UriComponentsBuilder
                 .fromUriString("https://openapi.gg.go.kr/StayingGeneralHotel")
                 .queryParam("KEY", apiKey)
@@ -67,15 +65,16 @@ public class RawHotelScheduler {
         RequestEntity<Void> requestEntity = RequestEntity.get(uri).build();
         ResponseEntity<String> responseEntity = restTemplate.exchange(requestEntity, String.class);
 
-        numberOfData = new JSONObject(responseEntity.getBody())
+        Long numberOfData = new JSONObject(responseEntity.getBody())
                 .getJSONArray("StayingGeneralHotel").getJSONObject(0)
                 .getJSONArray("head").getJSONObject(0)
                 .getLong("list_total_count");
 
         log.info("dataCount = " + numberOfData);
+        return numberOfData;
     }
 
-    private void updateData() {
+    private void updateData(Long numberOfData) {
         long page = (numberOfData / BATCH_SIZE) + 1;
 
         log.info("StayingGeneralHotel" + " Update Scheduling Start");
