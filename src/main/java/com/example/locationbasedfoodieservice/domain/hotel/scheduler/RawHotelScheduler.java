@@ -70,7 +70,7 @@ public class RawHotelScheduler {
                 .getJSONArray("head").getJSONObject(0)
                 .getLong("list_total_count");
 
-        log.info("dataCount = " + numberOfData);
+        log.info("numberOfData = " + numberOfData);
         return numberOfData;
     }
 
