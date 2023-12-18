@@ -1,4 +1,4 @@
-package com.example.locationbasedfoodieservice.domain.restaurant;
+package com.example.locationbasedfoodieservice.domain.hotel;
 
 import com.example.locationbasedfoodieservice.domain.review.Review;
 import jakarta.persistence.Column;
@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Restaurant {
+public class Hotel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,12 +59,12 @@ public class Restaurant {
     @Column
     private Double latitude;
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(mappedBy = "hotel")
     private List<Review> reviews = new ArrayList<>();
 
 
     @Builder
-    public Restaurant(Long id, String nameAddress, String city, String name, String licenseDate,
+    public Hotel(Long id, String nameAddress, String city, String name, String licenseDate,
             String businessStatus,
             String type, String streetAddress, String lotNumberAddress, String postalCode,
             Double longitude, Double latitude) {
@@ -85,5 +85,18 @@ public class Restaurant {
 
     public void updateRating(double rating) {
         this.rating = rating;
+    }
+
+    public void update(RawHotel rawHotel) {
+        this.city = rawHotel.getSigunNm();
+        this.name = rawHotel.getBizplcNm();
+        this.licenseDate = rawHotel.getLicensgDe();
+        this.businessStatus = rawHotel.getBsnStateNm();
+        this.type = rawHotel.getSanittnBizcondNm();
+        this.streetAddress = rawHotel.getRefineRoadnmAddr();
+        this.lotNumberAddress = rawHotel.getRefineLotnoAddr();
+        this.postalCode = rawHotel.getRefineZipCd();
+        this.longitude = rawHotel.getRefineWgs84Logt();
+        this.latitude = rawHotel.getRefineWgs84Lat();
     }
 }

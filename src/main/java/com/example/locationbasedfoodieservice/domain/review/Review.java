@@ -1,6 +1,6 @@
 package com.example.locationbasedfoodieservice.domain.review;
 
-import com.example.locationbasedfoodieservice.domain.restaurant.Restaurant;
+import com.example.locationbasedfoodieservice.domain.hotel.Hotel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -30,19 +30,19 @@ public class Review {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
-    private Restaurant restaurant;
+    private Hotel hotel;
 
     @Builder
-    public Review(Long id, Integer score, String content, Restaurant restaurant) {
+    public Review(Long id, Integer score, String content, Hotel hotel) {
         this.id = id;
         this.score = score;
         this.content = content;
-        this.restaurant = restaurant;
+        this.hotel = hotel;
     }
 
-    public void addRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-        restaurant.getReviews().add(this);
+    public void addRestaurant(Hotel hotel) {
+        this.hotel = hotel;
+        hotel.getReviews().add(this);
     }
 
 }
